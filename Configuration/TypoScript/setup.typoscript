@@ -11,6 +11,37 @@ plugin.tx_friendlycaptcha {
     lang = {$plugin.tx_friendlycaptcha.lang}
 }
 
+# register friendlycaptcha as captcha for sf_register
+plugin.tx_sfregister.settings {
+  friendlycaptcha.public_key = {$plugin.tx_friendlycaptcha.public_key}
+
+  friendlycaptcha.lang = {$plugin.tx_friendlycaptcha.lang}
+
+  captcha.friendlycaptcha = BalatD\FriendlyCaptcha\Adapter\SfRegisterAdapter
+
+  fields {
+    createDefaultSelected {
+      370 >
+      380 >
+
+      400 = submit_captcha
+    }
+
+    configuration {
+      captcha.type = FriendlyCaptcha
+      submit_captcha.partial = SubmitWithInvisibleCaptcha
+    }
+  }
+
+  validation.create {
+    captcha = "Evoweb.SfRegister:Captcha", options={"type": "friendlycaptcha"}
+  }
+
+  validation.invite {
+    captcha = "Evoweb.SfRegister:Captcha", options={"type": "friendlycaptcha"}
+  }
+}
+
 # add settings for EXT:form
 plugin.tx_form.settings.yamlConfigurations.1998 = EXT:db_friendlycaptcha/Configuration/Yaml/FormSetup.yaml
 plugin.tx_form.view.partialRootPaths.1998 = EXT:db_friendlycaptcha/Resources/Private/Frontend/Partials/
