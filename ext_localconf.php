@@ -14,8 +14,7 @@ call_user_func(function () {
 
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('
         module.tx_form.settings.yamlConfigurations {
-            1998 = EXT:db_friendlycaptcha/Configuration/Yaml/BaseSetup.yaml
-            1999 = EXT:db_friendlycaptcha/Configuration/Yaml/FormEditorSetup.yaml
+            1998 = EXT:db_friendlycaptcha/Configuration/Yaml/FormSetup.yaml
         }
     ');
 });

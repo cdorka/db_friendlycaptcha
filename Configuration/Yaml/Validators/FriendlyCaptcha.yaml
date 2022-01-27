@@ -1,0 +1,11 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          validatorsDefinition:
+            FriendlyCaptcha:
+              implementationClassName: BalatD\FriendlyCaptcha\Validation\FriendlyCaptchaValidator
+              formEditor:
+                iconIdentifier: form-validator
+                label: formEditor.elements.FormElement.editor.friendlyCaptchaValidator.label

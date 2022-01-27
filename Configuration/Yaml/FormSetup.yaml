@@ -1,0 +1,16 @@
+imports:
+  - { resource: "./Validators/FriendlyCaptcha.yaml" }
+  - { resource: "./FormElements/FriendlyCaptcha.yaml" }
+
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          formEditor:
+            dynamicRequireJsModules:
+              additionalViewModelModules:
+                - 'TYPO3/CMS/DbFriendlycaptcha/Backend/FormEditor/FriendlyCaptchaViewModel'
+
+            formEditorPartials:
+              FormElement-FriendlyCaptcha: 'Stage/SimpleTemplate'

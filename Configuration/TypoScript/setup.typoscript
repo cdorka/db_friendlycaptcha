@@ -12,7 +12,7 @@ plugin.tx_friendlycaptcha {
 }
 
 # add settings for EXT:form
-plugin.tx_form.settings.yamlConfigurations.1998 = EXT:db_friendlycaptcha/Configuration/Yaml/BaseSetup.yaml
+plugin.tx_form.settings.yamlConfigurations.1998 = EXT:db_friendlycaptcha/Configuration/Yaml/FormSetup.yaml
 plugin.tx_form.view.partialRootPaths.1998 = EXT:db_friendlycaptcha/Resources/Private/Frontend/Partials/
 
 page.includeJSFooterlibs{
