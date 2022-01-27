@@ -17,14 +17,20 @@ use BalatD\FriendlyCaptcha\Services\FriendlyCaptchaService;
 
 class FriendlycaptchaViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper
 {
+    protected FriendlyCaptchaService $captchaService;
+
+    public function __construct(FriendlyCaptchaService $captchaService)
+    {
+        $this->captchaService = $captchaService;
+        parent::__construct();
+    }
+
     public function render(): string
     {
         $name = $this->getName();
         $this->registerFieldNameForFormTokenGeneration($name);
 
-        $captchaService = \BalatD\FriendlyCaptcha\Services\FriendlyCaptchaService::getInstance();
-
-        $this->templateVariableContainer->add('configuration', $captchaService->getConfiguration());
+        $this->templateVariableContainer->add('configuration', $this->captchaService->getConfiguration());
         $this->templateVariableContainer->add('name', $name);
 
         $content = $this->renderChildren();

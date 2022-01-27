@@ -8,9 +8,8 @@ services:
   BalatD\FriendlyCaptcha\:
     resource: '../Classes/*'
 
-  BalatD\FriendlyCaptcha\Services\CaptchaService:
+  BalatD\FriendlyCaptcha\Services\FriendlyCaptchaService:
     arguments:
-      - '@TYPO3\CMS\Core\Configuration\ExtensionConfiguration'
       - '@TYPO3\CMS\Extbase\Configuration\ConfigurationManager'
       - '@TYPO3\CMS\Core\TypoScript\TypoScriptService'
       - '@TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer'

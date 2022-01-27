@@ -23,31 +23,24 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 class FriendlyCaptchaService
 {
-    /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     */
-    protected $objectManager;
+    protected array $configuration = [];
 
-    /**
-     * @var array
-     */
-    protected $configuration = [];
+    protected ConfigurationManagerInterface $configurationManager;
 
-    public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager)
-    {
-        $this->objectManager = $objectManager;
+    protected TypoScriptService $typoScriptService;
+
+    protected ContentObjectRenderer $contentRenderer;
+
+    public function __construct(
+        ConfigurationManagerInterface $configurationManager,
+        TypoScriptService $typoScriptService,
+        ContentObjectRenderer $contentRenderer
+    ) {
+        $this->configurationManager = $configurationManager;
+        $this->typoScriptService = $typoScriptService;
+        $this->contentRenderer = $contentRenderer;
+
         $this->initialize();
-    }
-
-    public static function getInstance(): FriendlyCaptchaService
-    {
-        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-        $objectManager = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\Object\ObjectManager::class
-        );
-        /** @var self $instance */
-        $instance = $objectManager->get(self::class);
-        return $instance;
     }
 
     /**
@@ -63,19 +56,15 @@ class FriendlyCaptchaService
             $configuration = [];
         }
 
-        /** @var ConfigurationManagerInterface $configurationManager */
-        $configurationManager = $this->objectManager->get(ConfigurationManagerInterface::class);
-        $typoScriptConfiguration = $configurationManager->getConfiguration(
+        $typoScriptConfiguration = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
             'db_friendlycaptcha'
         );
 
         if (!empty($typoScriptConfiguration) && is_array($typoScriptConfiguration)) {
-            /** @var TypoScriptService $typoScriptService */
-            $typoScriptService = $this->objectManager->get(TypoScriptService::class);
             \TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule(
                 $configuration,
-                $typoScriptService->convertPlainArrayToTypoScriptArray($typoScriptConfiguration),
+                $this->typoScriptService->convertPlainArrayToTypoScriptArray($typoScriptConfiguration),
                 true,
                 false
             );
@@ -96,13 +85,6 @@ class FriendlyCaptchaService
         return $this->configuration;
     }
 
-    protected function getContentObjectRenderer(): ContentObjectRenderer
-    {
-        /** @var ContentObjectRenderer $contentRenderer */
-        $contentRenderer = $this->objectManager->get(ContentObjectRenderer::class);
-        return $contentRenderer;
-    }
-
     /**
      * Build Friendly Captcha Frontend HTML-Code
      *
@@ -110,7 +92,7 @@ class FriendlyCaptchaService
      */
     public function getFriendlyCaptcha(): string
     {
-        $captcha = $this->getContentObjectRenderer()->stdWrap(
+        $captcha = $this->contentRenderer->stdWrap(
             $this->configuration['public_key'],
             $this->configuration['public_key.']
         );
@@ -125,16 +107,6 @@ class FriendlyCaptchaService
      */
     public function validateFriendlyCaptcha(): array
     {
-        if (!isset($this->configuration) || empty($this->configuration)) {
-            if (! $this->objectManager instanceof \TYPO3\CMS\Extbase\Object\ObjectManager) {
-                /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-                $objectManager = GeneralUtility::makeInstance(
-                    \TYPO3\CMS\Extbase\Object\ObjectManager::class
-                );
-                $this->injectObjectManager($objectManager);
-            }
-        }
-
         $request = [
             'solution' => trim(GeneralUtility::_GP('frc-captcha-solution')),
             'secret' => $this->configuration['private_key'],

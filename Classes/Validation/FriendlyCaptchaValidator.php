@@ -14,6 +14,7 @@ namespace BalatD\FriendlyCaptcha\Validation;
  */
 
 use BalatD\FriendlyCaptcha\Services\FriendlyCaptchaService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class FriendlyCaptchaValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator
 {
@@ -44,7 +45,7 @@ class FriendlyCaptchaValidator extends \TYPO3\CMS\Extbase\Validation\Validator\A
      */
     public function isValid($value)
     {
-        $captcha = \BalatD\FriendlyCaptcha\Services\FriendlyCaptchaService::getInstance();
+        $captcha = GeneralUtility::getContainer()->get(FriendlyCaptchaService::class);
 
         if ($captcha !== null) {
             $status = $captcha->validateFriendlyCaptcha();
