@@ -58,7 +58,7 @@ class FriendlyCaptchaService
 
         $typoScriptConfiguration = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
-            'db_friendlycaptcha'
+            'friendlycaptcha'
         );
 
         if (!empty($typoScriptConfiguration) && is_array($typoScriptConfiguration)) {
