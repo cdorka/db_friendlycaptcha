@@ -14,7 +14,6 @@ use BalatD\FriendlyCaptcha\Services\FriendlyCaptchaService;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
-
 class FriendlycaptchaViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper
 {
     protected FriendlyCaptchaService $captchaService;

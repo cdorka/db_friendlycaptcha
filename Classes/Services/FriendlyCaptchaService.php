@@ -20,7 +20,6 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
-
 class FriendlyCaptchaService
 {
     protected array $configuration = [];
@@ -33,9 +32,10 @@ class FriendlyCaptchaService
 
     public function __construct(
         ConfigurationManagerInterface $configurationManager,
-        TypoScriptService $typoScriptService,
-        ContentObjectRenderer $contentRenderer
-    ) {
+        TypoScriptService             $typoScriptService,
+        ContentObjectRenderer         $contentRenderer
+    )
+    {
         $this->configurationManager = $configurationManager;
         $this->typoScriptService = $typoScriptService;
         $this->contentRenderer = $contentRenderer;
@@ -159,5 +159,4 @@ class FriendlyCaptchaService
 
         return $response ? json_decode($response, true) : [];
     }
-
 }

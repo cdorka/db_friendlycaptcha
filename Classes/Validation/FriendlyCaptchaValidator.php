@@ -61,5 +61,4 @@ class FriendlyCaptchaValidator extends \TYPO3\CMS\Extbase\Validation\Validator\A
             }
         }
     }
-
 }
