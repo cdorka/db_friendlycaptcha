@@ -3,7 +3,6 @@
 	"type": "typo3-cms-extension",
 	"description": "Bot protection for the internet.",
 	"license": "GPL-2.0-or-later",
-	"version": "1.0.0",
 
 	"support": {
 		"issues": "https://github.com/balatD/db_friendlycaptcha/issues"
