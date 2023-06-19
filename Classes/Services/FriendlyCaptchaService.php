@@ -12,7 +12,9 @@ namespace BalatD\FriendlyCaptcha\Services;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
-
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ServerRequestInterface;
@@ -35,8 +37,8 @@ class FriendlyCaptchaService
 
     protected function initialize(): void
     {
-        $configuration = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class
+        $configuration = GeneralUtility::makeInstance(
+            ExtensionConfiguration::class
         )->get('db_friendlycaptcha');
 
         if (!is_array($configuration)) {
@@ -49,7 +51,7 @@ class FriendlyCaptchaService
         );
 
         if (!empty($typoScriptConfiguration) && is_array($typoScriptConfiguration)) {
-            \TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule(
+            ArrayUtility::mergeRecursiveWithOverrule(
                 $configuration,
                 $this->typoScriptService->convertPlainArrayToTypoScriptArray($typoScriptConfiguration),
                 true,
