@@ -44,12 +44,12 @@ plugin.tx_sfregister.settings {
 
 # add settings for EXT:form
 plugin.tx_form.settings.yamlConfigurations.1998 = EXT:db_friendlycaptcha/Configuration/Yaml/FormSetup.yaml
-plugin.tx_form.view.partialRootPaths.1998 = EXT:db_friendlycaptcha/Resources/Private/Frontend/Partials/
+plugin.tx_form.view.partialRootPaths.1998 = EXT:db_friendlycaptcha/Resources/Private/Partials/
 
-page.includeJSFooterlibs{
-  friendlycaptchaModule = https://unpkg.com/friendly-challenge@0.8.3/widget.module.min.js
+page.includeJSFooterlibs {
+  friendlycaptchaModule = https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.12/widget.module.min.js
   friendlycaptchaModule.external = 1
 
-  friendlycaptcha = https://unpkg.com/friendly-challenge@0.8.3/widget.min.js
+  friendlycaptcha = https://cdn.jsdelivr.net/npm/friendly-challenge@0.9.12/widget.min.js
   friendlycaptcha.external = 1
 }

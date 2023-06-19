@@ -2,6 +2,7 @@
       xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
       xmlns:frc="http://typo3.org/ns/BalatD/FriendlyCaptcha/ViewHelpers"
       data-namespace-typo3-fluid="true">
+
 <formvh:renderRenderable renderable="{element}">
     <f:render partial="Field/Field" arguments="{element: element}" contentAs="elementContent">
         <f:format.raw><frc:form.friendlycaptcha>
@@ -13,6 +14,7 @@
             />
             <div class="frc-captcha"
                  data-sitekey="{configuration.public_key}"
+                 {f:if(condition: '{configuration.puzzle_server}', then: 'data-puzzle-endpoint="{configuration.puzzle_server}"')}
                  {f:if(condition: '{configuration.lang}', then: 'data-lang="{configuration.lang}"')}></div>
         </frc:form.friendlycaptcha></f:format.raw>
     </f:render>

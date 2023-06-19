@@ -2,8 +2,6 @@
 
 namespace BalatD\FriendlyCaptcha\ViewHelpers\Form;
 
-use BalatD\FriendlyCaptcha\Services\FriendlyCaptchaService;
-
 /**
  * This file is developed by balatD.
  *
@@ -14,7 +12,11 @@ use BalatD\FriendlyCaptcha\Services\FriendlyCaptchaService;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
-class FriendlycaptchaViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper
+
+use BalatD\FriendlyCaptcha\Services\FriendlyCaptchaService;
+use TYPO3\CMS\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper;
+
+class FriendlycaptchaViewHelper extends AbstractFormFieldViewHelper
 {
     protected FriendlyCaptchaService $captchaService;
 

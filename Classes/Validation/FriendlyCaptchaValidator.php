@@ -14,23 +14,24 @@ namespace BalatD\FriendlyCaptcha\Validation;
  */
 
 use BalatD\FriendlyCaptcha\Services\FriendlyCaptchaService;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Error\Result;
+use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
-class FriendlyCaptchaValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator
+class FriendlyCaptchaValidator extends AbstractValidator
 {
     protected $acceptsEmptyValues = false;
 
     /**
      * Checks if the given value is valid according to the validator, and returns
      * the error messages object which occurred.
-     *
-     * @param mixed $value The value that should be validated
-     * @return \TYPO3\CMS\Extbase\Error\Result
      */
-    public function validate($value)
+    public function validate(mixed $value): Result
     {
-        $value = trim(\TYPO3\CMS\Core\Utility\GeneralUtility::_POST('frc-captcha-solution'));
-        $this->result = new \TYPO3\CMS\Extbase\Error\Result();
+        $value = trim($this->getRequest()->getParsedBody()['frc-captcha-solution'] ?? '');
+
+        $this->result = new Result();
 
         if ($this->acceptsEmptyValues === false || $this->isEmpty($value) === false) {
             $this->isValid($value);
@@ -40,10 +41,8 @@ class FriendlyCaptchaValidator extends \TYPO3\CMS\Extbase\Validation\Validator\A
 
     /**
      * Validate the captcha value from the request and add an error if not valid
-     *
-     * @param mixed $value The value
      */
-    public function isValid($value)
+    public function isValid(mixed $value): void
     {
         $captcha = GeneralUtility::getContainer()->get(FriendlyCaptchaService::class);
 
@@ -61,4 +60,10 @@ class FriendlyCaptchaValidator extends \TYPO3\CMS\Extbase\Validation\Validator\A
             }
         }
     }
+
+    protected function getRequest(): ServerRequestInterface
+    {
+        return $GLOBALS['TYPO3_REQUEST'];
+    }
+
 }

@@ -1,4 +1,3 @@
-
 TYPO3:
   CMS:
     Form:
@@ -8,7 +7,7 @@ TYPO3:
             Form:
               renderingOptions:
                 partialRootPaths:
-                  1998: 'EXT:db_friendlycaptcha/Resources/Private/Frontend/Partials/'
+                  1998: 'EXT:db_friendlycaptcha/Resources/Private/Partials/'
 
             FriendlyCaptcha:
               implementationClassName: 'BalatD\FriendlyCaptcha\Domain\Model\FormElements\FriendlyCaptchaElement'
@@ -18,8 +17,3 @@ TYPO3:
           validatorsDefinition:
             FriendlyCaptcha:
               implementationClassName: 'BalatD\FriendlyCaptcha\Validation\FriendlyCaptchaValidator'
-      mixins:
-        finishersEmailMixin:
-          options:
-            templateRootPaths:
-              1998: 'EXT:db_friendlycaptcha/Resources/Private/Frontend/Templates/Finishers/Email/'

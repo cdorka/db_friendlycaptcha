@@ -1,5 +1,8 @@
 # cat=plugin.db_friendlycaptcha; type=string; label=Friendly Captcha Verify Server
-verify_server = https://friendlycaptcha.com/api/v1/siteverify
+verify_server = https://api.friendlycaptcha.com/api/v1/siteverify
+
+# cat=plugin.db_friendlycaptcha; type=string; label=Friendly Captcha EU Puzzle Server
+puzzle_server = https://eu-api.friendlycaptcha.eu/api/v1/puzzle
 
 # cat=plugin.db_friendlycaptcha; type=string; label=Friendly Captcha Sitekey
 public_key = FCMOABOI5RB32NME

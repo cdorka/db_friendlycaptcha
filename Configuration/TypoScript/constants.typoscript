@@ -1,12 +1,15 @@
 plugin.tx_friendlycaptcha {
     # cat=plugin.friendlycaptcha//01; type=string; label= Friendly Captcha Verification Server
-    verify_server = https://friendlycaptcha.com/api/v1/siteverify
+    verify_server = https://api.friendlycaptcha.com/api/v1/siteverify
+
+    # cat=plugin.db_friendlycaptcha; type=string; label=Friendly Captcha EU Puzzle Server
+    puzzle_server = https://eu-api.friendlycaptcha.eu/api/v1/puzzle
 
     # cat=plugin.friendlycaptcha//02; type=string; label= Friendly Captcha Sitekey
-    public_key = FCMOABOI5RB32NME
+    public_key =
 
     # cat=plugin.friendlycaptcha//03; type=string; label= Friendly Captcha API key
-    private_key = A1MKM8IIS391S48FNVJO6VIHBBR1UV83L9PIRGJT9JU0J0N9ANGBG79ITR
+    private_key =
 
     # cat=plugin.friendlycaptcha//04; type=string; label= Friendly Captcha language
     lang = de
