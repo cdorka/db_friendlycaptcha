@@ -41,10 +41,13 @@ class FriendlyCaptchaValidator extends AbstractValidator
 
     /**
      * Validate the captcha value from the request and add an error if not valid
+     *
+     * @param mixed $value
+     * @return void
      */
     public function isValid(mixed $value): void
     {
-        $captcha = GeneralUtility::getContainer()->get(FriendlyCaptchaService::class);
+        $captcha = GeneralUtility::makeInstance(FriendlyCaptchaService::class);
 
         if ($captcha !== null) {
             $status = $captcha->validateFriendlyCaptcha();
@@ -53,7 +56,17 @@ class FriendlyCaptchaValidator extends AbstractValidator
                 $errorText = $this->translateErrorMessage('error_friendlycaptcha_' . $status['error'], 'db_friendlycaptcha');
 
                 if (empty($errorText)) {
-                    $errorText = htmlspecialchars($status['error']);
+                    // Avoid passing null to htmlspecialchars to prevent deprecation notices
+                    if ($status['error'] !== null) {
+                        $errorText = htmlspecialchars(
+                            $status['error'],
+                            ENT_QUOTES | ENT_HTML5,
+                            'UTF-8'
+                        );
+                    } else {
+                        // Fallback for missing frontend validation, the case when field value is empty
+                        $errorText = $this->translateErrorMessage('validation.error.1347992453', 'form');
+                    }
                 }
 
                 $this->addError($errorText, 1519982125);
