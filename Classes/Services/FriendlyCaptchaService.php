@@ -110,9 +110,13 @@ class FriendlyCaptchaService
             if ($response['success']) {
                 $result['verified'] = true;
             } else {
-                $result['error'] = is_array($response['error-codes']) ?
-                    reset($response['error-codes']) :
-                    $response['error-codes'];
+                if (isset($response['error-codes'])) {
+                    $result['error'] = is_array($response['error-codes']) ?
+                        reset($response['error-codes']) :
+                        $response['error-codes'];
+                } else {
+                    $result['error'] = 'unknown-error';
+                }
             }
         }
 
